@@ -17,7 +17,7 @@
 
     收藏从各个网站以及国外博客看到的比较好的文章(附转载)
 
-- [JAVA-API](https://github.com/felayman/elasticsearch-full/tree/master/JAVA-API%E8%AF%B4%E6%98%8E)
+- [JAVA-API](https://github.com/felayman/elasticsearch-full/tree/master/JAVA-API)
 
     针对Elasticsearch5.5.0官方提供的原生client以及restClient和spring-data-elasticsearch提供的elasticsearchTemplate的某些java-api的实现
 
