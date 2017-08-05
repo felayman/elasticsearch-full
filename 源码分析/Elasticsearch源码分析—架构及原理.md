@@ -1,0 +1,1 @@
+![Elasticsearch架构及原理图](http://images2015.cnblogs.com/blog/1004194/201611/1004194-20161124185700128-46209682.png)
