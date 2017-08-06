@@ -36,7 +36,7 @@ Elasticsearch 看名字就能大概了解下它是一个弹性的搜索引擎。
 
 Elasticsearch 将以上服务发现以及选主的流程叫做 ZenDiscovery 。由于它支持任意数目的集群（1-N）,所以不能像 Zookeeper/Etcd 那样限制节点必须是奇数，也就无法用投票的机制来选主，而是通过一个规则，只要所有的节点都遵循同样的规则，得到的信息都是对等的，选出来的主节点肯定是一致的。但分布式系统的问题就出在信息不对等的情况，这时候很容易出现脑裂（Split-Brain）的问题，大多数解决方案就是设置一个quorum值，要求可用节点必须大于quorum（一般是超过半数节点），才能对外提供服务。而 Elasticsearch 中，这个quorum的配置就是 discovery.zen.minimum_master_nodes 。 说到这里要吐槽下 Elasticsearch 的方法和变量命名，它的方法和配置中的master指的是master的候选节点，也就是说可能成为master的节点，并不是表示当前的master，我就被它的一个 isMasterNode 方法坑了，开始一直没能理解它的选举规则。
 
-弹性伸缩 Elastic
+**弹性伸缩 Elastic**
 
 Elasticsearch 的弹性体现在两个方面： 1. 服务发现机制让节点很容易加入和退出。 2. 丰富的设置以及allocation API。
 
