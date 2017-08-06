@@ -38,7 +38,10 @@ Elasticsearch 将以上服务发现以及选主的流程叫做 ZenDiscovery 。�
 
 **弹性伸缩 Elastic**
 
-Elasticsearch 的弹性体现在两个方面： 1. 服务发现机制让节点很容易加入和退出。 2. 丰富的设置以及allocation API。
+Elasticsearch 的弹性体现在两个方面：
+
+1. 服务发现机制让节点很容易加入和退出。
+ 2. 丰富的设置以及allocation API。
 
 Elasticsearch 节点启动的时候只需要配置discovery.zen.ping.unicast.hosts，这里不需要列举集群中所有的节点，只要知道其中一个即可。当然为了避免重启集群时正好配置的节点挂掉，最好多配置几个节点。节点退出时只需要调用 API 将该节点从集群中排除 （Shard Allocation Filtering），系统会自动迁移该节点上的数据，然后关闭该节点即可。当然最好也将不可用的已知节点从其他节点的配置中去除，避免下次启动时出错。
 
