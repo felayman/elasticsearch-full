@@ -13,7 +13,9 @@
 
 
 **索引一些数据**
+
 首先，我们会创建一个新的索引并通过bulk API索引一些文档：
+
 ~~~
 DELETE /my_index
 
@@ -96,6 +98,7 @@ GET /_search
 当我们在进行Match Query的时候,Elasticsearch同时也提供了对查询的内容进行模糊性处理,处理的方式是靠fuzziness参数控制
 
 我们继续以上面的查询为例,当我们使用如下的查询:
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -108,6 +111,7 @@ POST /my_index/my_type/_search
 ~~~
 
 我们能得到三条匹配结果:
+
 ~~~
 {
   "took": 0,
@@ -154,6 +158,7 @@ POST /my_index/my_type/_search
 ~~~
 
 我们修改上面的查询为:
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -166,6 +171,7 @@ POST /my_index/my_type/_search
 ~~~
 
 我们将得不到查询结果:
+
 ~~~
 {
   "took": 0,
@@ -184,6 +190,7 @@ POST /my_index/my_type/_search
 ~~~
 
 因为索引的文档中并没有quack词条,因此无法匹配到相关文档,那我们来尝试使用Match Query提供的Fuzziness特性,我们修改查询为:
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -199,6 +206,7 @@ POST /my_index/my_type/_search
 ~~~
 
 我们只是添加了一个fuzziness参数,并设置该值为1(即编辑距离为1),我们再来看查询结果:
+
 ~~~
 {
   "took": 5,
@@ -248,11 +256,12 @@ POST /my_index/my_type/_search
 
 当用户输入一个短语或单词,用户很可能输错了其中一个字母或汉字,那么这个时候我们的系统是应该能发现这种情况,并返回给用户期望的结果。
 
-###  operator
+###  Operator(terms并存性)
 
 Match Query 的另一个特性就是允许我们控制在分析匹配短语后的并存情况,这个特性是靠参数operator来进行控制的.
 
 我们仍旧拿上面的例子说明,这次我们修改查询语句为:
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -268,6 +277,7 @@ POST /my_index/my_type/_search
 ~~~
 
 结果为:
+
 ~~~
 {
   "took": 0,
@@ -308,6 +318,7 @@ POST /my_index/my_type/_search
 中必须同时包含"quick","dog"两个词条,如果operator为or,则匹配到的文档中则必须包含"quick","dog"两个词条中的一个即可。
 
 我们修改operator为or,结果为
+
 ~~~
 {
   "took": 0,
@@ -362,13 +373,14 @@ POST /my_index/my_type/_search
 }
 ~~~
 
-###  Zero terms query(零词条查询)
+###  Zero terms query(零term查询)
 
         Zero terms query是Match Query的一个特例,我们都知道,有些分析器会在分析输入内容的时候对内容进行停顿词处理(即将一些停顿词删除掉),比如"english"分析器就会将
         类似to,or,a,the ,not ,be等高频词汇当做停顿词处理,那么这样就会存在这样一个特殊情况,比如我们在对内容"to be or not to be"进行搜索的话,很遗憾,该内容被标准分析
         器分析之后将不会得到词条
 
 我们使用Elasticsearch提供的内置"english"分析器对"to be or not to be"进行分词之后,查看结果为:
+
 ~~~
 POST /_analyze
 {
@@ -377,6 +389,7 @@ POST /_analyze
 }
 ~~~
 结果为:
+
 ~~~
 {
   "tokens": []
@@ -386,6 +399,7 @@ POST /_analyze
 一脸懵逼,不局限于英语,任何语言都可能存在这种情况,那如何能保证能够搜索这样的文本内容呢？Elasticsearch提供了zero_terms_query参数来控制,
 
 比如我们使用这样的查询来看看:
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -401,6 +415,7 @@ POST /my_index/my_type/_search
 ~~~
 
 结果为:
+
 ~~~
 {
   "took": 0,
@@ -419,6 +434,7 @@ POST /my_index/my_type/_search
 ~~~
 
 我们添加zero_terms_query参数之后,
+
 ~~~
 POST /my_index/my_type/_search
 {
@@ -435,6 +451,7 @@ POST /my_index/my_type/_search
 ~~~
 
 结果都出来了:
+
 ~~~
 {
   "took": 0,
@@ -497,6 +514,11 @@ POST /my_index/my_type/_search
   }
 }
 ~~~
+
+### Cutoff frequency()
+
+
+
 
 ## 参考
 - [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
