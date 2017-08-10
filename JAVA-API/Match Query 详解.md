@@ -515,12 +515,174 @@ POST /my_index/my_type/_search
 }
 ~~~
 
-### Cutoff frequency()
+### Cutoff frequency (高低频截断)
 
+> 当需要匹配的一个短语中包含过多的被认为是停顿词或者低频词的时候,为了提高对次类短语搜索的性能,Elasticsearch
+一个特殊解决方法,就是利用Cutoff frequency来将该短语中(分析后的词条)的分成两个类型,一类为高频词汇(如常见的停顿词)
+ 另一类为不常见的词汇(比如一些名字),举个例子来说用户输入"the money of the cat and dog " ,其中"the","of ","and"通常被认为
+是高频词汇,而"money","cat","dog"则被认为是低频词汇.
 
+在这里需要声明的时候,Match Query 是bool查询的一种(官方提及过The match query is of type boolean),也就是说所有的Match Query
+在内部都会被改写成bool查询,比如上面的查询:
+~~~
+POST /my_index/my_type/_search
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "to be or not to be",
+        "analyzer": "english",
+        "zero_terms_query": "all"
+      }
+    }
+  }
+}
+~~~
+给改写成(不考虑停顿词是否在分析的时候被删除)
+~~~
+POST /my_index/my_type/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "title": {
+              "value": "to"
+            }
+          }
+        },
+        {
+          "term": {
+            "title": {
+              "value": "be"
+            }
+          }
+        },
+        {
+          "term": {
+            "title": {
+              "value": "or"
+            }
+          }
+        },
+        {
+          "term": {
+            "title": {
+              "value": "not"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+~~~
 
+我们再回到高低频截断的问题上,如果我们输入的内容中包含了许多高频词汇(包括停顿词),这些词语如果也被改写成bool查询的一个匹配项的话,
+如果bool查询的子查询条数过多的时候,这个性能是受到一定的影响的,为了提升性能,Elasticsearch提供了一种解决方案,那就是Cutoff frequency,下
+面我们就详细说下Cutoff frequency.
+
+从官方文档中很难看出Cutoff frequency的使用和介绍,最后是在Elasticsearch源码中发现了真正能解释清楚Cutoff frequency作用的描述,原文如下:
+
+~~~
+/**
+ * CommonTermsQuery query is a query that executes high-frequency terms in a
+ * optional sub-query to prevent slow queries due to "common" terms like
+ * stopwords. This query basically builds 2 queries off the {@code #add(Term)
+ * added} terms where low-frequency terms are added to a required boolean clause
+ * and high-frequency terms are added to an optional boolean clause. The
+ * optional clause is only executed if the required "low-frequency' clause
+ * matches. Scores produced by this query will be slightly different to plain
+ * {@link BooleanQuery} scorer mainly due to differences in the
+ * {@link Similarity#coord(int,int) number of leave queries} in the required
+ * boolean clause. In the most cases high-frequency terms are unlikely to
+ * significantly contribute to the document score unless at least one of the
+ * low-frequency terms are matched such that this query can improve query
+ * execution times significantly if applicable.
+ */
+~~~
+
+   通俗来说,当定义了Cutoff frequency之后,Elasticsearch会对该匹配的词条分为两种类型的词条,高频词条(类似于停顿词一样出现频率很高)和低频词条,低频词条会转换成一个必须进行匹配的子查询,而
+高频词条则会转换成另一个可选的子查询,该子查询只有在文档中的确匹配到了低频词条之后才会执行,这样如果低频词条没有匹配到任何文档,则该子查询则不会执行,这样一来就在某种程度上提升查询性能,因为bool查询的子查询越多,性能就越受到影响
+
+比如下面的查询:
+
+~~~
+POST /index/type/_search
+{
+  "query": {
+    "match": {
+      "username": {
+        "query": "kib the punishment and kob",
+        "cutoff_frequency" : 0.001
+      }
+    }
+  }
+}
+~~~
+
+最终会被被改写成如下两个bool查询
+
+低频子查询从句:
+
+~~~
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "username": {
+              "value": "kib"
+            }
+          }
+        },
+        {
+          "term": {
+            "username": {
+              "value": "punishment"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+~~~
+
+高频子查询从句:
+
+~~~
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "username": {
+              "value": "the"
+            }
+          }
+        },
+        {
+          "term": {
+            "username": {
+              "value": "and"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+~~~
+
+低频子查询从句能够匹配到文档,高频子查询从句才会执行,否则不会执行,当然如何定义高频词项和低频词项还有待商榷.
 
 ## 参考
+- [SparkML之特征提取（二）词项加权之DF-IDF](http://blog.csdn.net/legotime/article/details/51836028)
+- [ElasticSearch学习21_TF-IDF及其算法 ](http://blog.csdn.net/wang_zhenwei/article/details/53433673)
 - [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
 - [编辑距离及编辑距离算法](http://www.cnblogs.com/biyeymyhjob/archive/2012/09/28/2707343.html)
 - [Java算法之Levenshtein Distance（编辑距离）算法](http://blog.csdn.net/ironrabbit/article/details/18736185)
