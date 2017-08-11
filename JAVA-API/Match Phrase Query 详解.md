@@ -1,4 +1,4 @@
-## Match Phrase Query
+## Match Phrase Query (Elasticsearch6.0会移除该查询,建议使用Common Terms Query)
 
 >  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Constant Score Query
 
@@ -328,11 +328,9 @@ POST /my_index/my_type/_search
 
 ~~~
 
-更多关于Java API,请参考:
+更多关于Java API,请参考:[MatchPhraseQueryDemo](https://github.com/felayman/elasticsearch-java-api/blob/master/src/test/java/org/visualchina/elasticsearch/api/demo/query/MatchPhraseQueryDemo.java)
 
 ## 参考
-- [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
-- [编辑距离及编辑距离算法](http://www.cnblogs.com/biyeymyhjob/archive/2012/09/28/2707343.html)
-- [Java算法之Levenshtein Distance（编辑距离）算法](http://blog.csdn.net/ironrabbit/article/details/18736185)
-- [常见选项](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4882851)
+- [Match Phrase Query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html)
+- [Common Terms Query](https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/java-full-text-queries.html#java-query-dsl-common-terms-query)
 
