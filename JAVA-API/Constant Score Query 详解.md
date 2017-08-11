@@ -1,18 +1,10 @@
-## Fuzzy Query
+## Constant Score Query
 
->  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Fuzzy Query
-
-### 关于
-
-- 官方文档:[官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-fuzzy-query.html)
-- ApacheCN : [中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4882439)
-
-
+>  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Constant Score Query
 
 ### 概念
 
-    模糊查询利用了基于Levenshtein编辑距离的相似度
-    关于什么是编辑距离(Levenshtein)以及算法,请查看下面的参考部分.
+    姑且翻译成常量评分查询,
 
 ### 语法
 

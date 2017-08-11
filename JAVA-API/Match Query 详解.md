@@ -2,6 +2,11 @@
 
 >  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Fuzzy Query
 
+### 关于
+
+- 官方文档:[官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html)
+- ApacheCN : [中文文档](http://cwiki.apachecn.org/pages/viewpage.action?pageId=4882547#id-%E5%8C%B9%E9%85%8D%E6%9F%A5%E8%AF%A2-%E5%8C%B9%E9%85%8D%E6%9F%A5%E8%AF%A2)
+
 ### 概念
 
     Match Query 是Elasticsearch提供的一个基于全文字段处理的高级查询.它知道如何处理全文字段(Full-text, analyzed)和精确值字段(Exact-value，not_analyzed)
