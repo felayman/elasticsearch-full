@@ -148,7 +148,22 @@ POST /blogs/blog/_search
 
 真正的原因,还有待商榷......
 
+但是问题还是需要解决,我们是可以设置不同的参数来达到想要的结果:
 
+~~~
+POST /blogs/blog/_search
+{
+  "query": {
+   "multi_match": {
+     "query": "elasticsearch match query",
+     "fields": ["title","descrption"],
+     "tie_breaker": 20
+   }
+  }
+}
+~~~
+
+通过设置tie_breaker参数来控制匹配的权重缓冲值,意思是每个字段都会在得到匹配之后都会对该值进行计算.
 
 ### Java API
 
