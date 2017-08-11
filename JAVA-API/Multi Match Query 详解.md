@@ -169,20 +169,30 @@ POST /blogs/blog/_search
 
 ~~~
   @Test
-    public void testForClient() throws Exception {
-        QueryBuilder qb = QueryBuilders.multiMatchQuery(
-                "elasticsearch match query",
-                "title", "descrption"
-        );
-       SearchResponse searchResponse =  client.prepareSearch()
-                .setIndices("blogs")
-                .setTypes("blog")
-                .setQuery(qb)
-                .execute()
-                .actionGet();
+      public void testForClient() throws Exception {
+          MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery("elasticsearch match query","title", "descrption");
 
-       System.out.println(ResponseUtil.parse(searchResponse));
-    }
+          multiMatchQueryBuilder.analyzer("standard");
+          multiMatchQueryBuilder.cutoffFrequency(0.001f);
+          multiMatchQueryBuilder.field("title",20);
+          multiMatchQueryBuilder.fuzziness(Fuzziness.TWO);
+          multiMatchQueryBuilder.maxExpansions(100);
+          multiMatchQueryBuilder.prefixLength(10);
+          multiMatchQueryBuilder.tieBreaker(20);
+          multiMatchQueryBuilder.type(MultiMatchQueryBuilder.Type.BEST_FIELDS);
+          multiMatchQueryBuilder.boost(20);
+
+
+
+         SearchResponse searchResponse =  client.prepareSearch()
+                  .setIndices("blogs")
+                  .setTypes("blog")
+                  .setQuery(multiMatchQueryBuilder)
+                  .execute()
+                  .actionGet();
+
+         System.out.println(ResponseUtil.parse(searchResponse));
+      }
 ~~~
 
 更多关于Java API,请参考:[MultiMatchQueryDemo](https://github.com/felayman/elasticsearch-java-api/blob/master/src/test/java/org/visualchina/elasticsearch/api/demo/query/MultiMatchQueryDemo.java)
