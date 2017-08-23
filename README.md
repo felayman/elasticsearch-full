@@ -24,6 +24,10 @@
 
     针对Elasticsearch5.5.0官方提供的原生client以及restClient和spring-data-elasticsearch提供的elasticsearchTemplate的某些java-api的实现
 
+- [LUCENE](https://github.com/felayman/elasticsearch-full/tree/master/LUCENE)
+
+    想深入学习Elasticsearch则需要深入了解Lucene的相关知识
+
 ## 参考
 
 - [elastic](https://www.elastic.co/cn/)
