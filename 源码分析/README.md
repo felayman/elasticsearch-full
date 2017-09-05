@@ -10,3 +10,4 @@
 6. [Elasticsearch源码分析—如何加载插件(六)](https://github.com/felayman/elasticsearch-full/blob/master/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Elasticsearch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BD%E6%8F%92%E4%BB%B6(%E5%85%AD).md)
 7. [Elasticsearch源码分析—创建自定义插件(七)](https://github.com/felayman/elasticsearch-full/blob/master/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Elasticsearch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6(%E4%B8%83).md)
 8. [Elasticsearch源码分析—创建索引(八)](https://github.com/felayman/elasticsearch-full/blob/master/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/Elasticsearch%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E2%80%94%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95(%E5%85%AB).md)
+9. [Elasticsearch源码分析—评分原理(九)](https://github.com/felayman/elasticsearch-full/blob/master/源码分析/Elasticsearch源码分析—评分原理(九).md)
