@@ -10,6 +10,7 @@
 ### 理论介绍
 
 详情参考文章:[Lucene 的评分机制](https://github.com/felayman/elasticsearch-full/blob/master/收藏好文/Lucene%20的评分机制.md)
+
 官方评分公式介绍:[TFIDFSimilarity](http://lucene.apache.org/core/6_6_0/core/index.html)
 
 评分公式如下:
