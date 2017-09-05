@@ -265,3 +265,4 @@ public class ClassicSimilarity extends TFIDFSimilarity {
 
 ## 参考
 - [TFIDFSimilarity](http://lucene.apache.org/core/6_6_0/core/index.html)
+- [Lucene 的实用评分函数](https://www.elastic.co/guide/cn/elasticsearch/guide/current/practical-scoring-function.html)
