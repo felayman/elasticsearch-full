@@ -204,3 +204,6 @@ norm(t,d): decode(encode(1/sqrt(2))) = 0.625
 总分: 1.4054651 * 0.625 = 0.8784157
 
 原文地址:[lucene 的评分机制](http://www.cnblogs.com/yjf512/p/4860134.html)
+
+## 参考(建议看看)
+- [打分策略详解与explain手把手计算](http://blog.csdn.net/molong1208/article/details/50623948)
