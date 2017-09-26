@@ -3,7 +3,7 @@ Elasticsearch 中文翻译
 
 ## 版本
 
-    [Elasticsearch 5.6.1](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+[Elasticsearch 5.6.1](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ## 章节
 
