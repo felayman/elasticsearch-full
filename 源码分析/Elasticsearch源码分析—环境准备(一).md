@@ -86,3 +86,9 @@ A problem occurred evaluating project ':benchmarks'.
     原因是因为elasticsearch中大量存在一个类或一个资源文件存在多个jar中,我们注释掉相应代码即可,主要是PluginsService中374行的JarHell.checkJarHell(union)以及
     Bootstrap中220行的JarHell.checkJarHell(),最简单的方式就是将JarHell.checkJarHell()中的方法体注释掉
 
+- org.elasticsearch.bootstrap.StartupException: java.lang.IllegalArgumentException: plugin [aggs-matrix-stats] is incompatible with version [7.0.0-alpha1]; was designed for version [5.6.1]
+
+    原因是一般情况下我们调试的源码非某个发布版本,有些配置项并未发布,我们的配置与当前代码的版本匹配不上,这个时候我们需要将调试的源码设置成某个发布版本,一般来说,Elasticsearch每发布
+    一个稳定版本,都会有一个对应的tag,我们进入到ES源码目录下执行git tag, 我这里调试的版本为v5.6.1,所以执行git checkout v5.6.1,切换到v5.6.1tag.
+
+
