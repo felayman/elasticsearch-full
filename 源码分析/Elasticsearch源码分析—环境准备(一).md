@@ -84,5 +84,5 @@ A problem occurred evaluating project ':benchmarks'.
 - org.elasticsearch.bootstrap.StartupException: org.elasticsearch.bootstrap.BootstrapException: java.lang.IllegalStateException: jar hell!或Classname: org.elasticsearch.search.aggregations.matrix.MatrixAggregationPlugin due to jar hell
 
     原因是因为elasticsearch中大量存在一个类或一个资源文件存在多个jar中,我们注释掉相应代码即可,主要是PluginsService中374行的JarHell.checkJarHell(union)以及
-    Bootstrap中220行的JarHell.checkJarHell()
+    Bootstrap中220行的JarHell.checkJarHell(),最简单的方式就是将JarHell.checkJarHell()中的方法体注释掉
 
