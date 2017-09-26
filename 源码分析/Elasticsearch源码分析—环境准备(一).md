@@ -68,16 +68,20 @@ A problem occurred evaluating project ':benchmarks'.
 
 ### 可能遇到的异常
 
-1. Exception in thread "main" java.lang.IllegalStateException: path.home is not configured
+- ERROR: the system property [es.path.conf] must be set
+
+    原因是没有指定es.path.conf,设置-Des.path.conf=你调试源码版本对应的conf目录
+
+-  Exception in thread "main" java.lang.IllegalStateException: path.home is not configured
 
      原因是因为没有为elasticsearch配置path.home参数,可以在Edit Configuation中设置虚拟机参数：-Des.path.home=你下载的对应的elasticsearch的安装目录,这么做的原因
      是elasticsearch在启动中会加载一些默认配置以及插件,我们直接加载elasticsearch安装目录下的配置和插件即可,后面会在源码中体现
 
-2. 2017-06-23 14:00:44,760 main ERROR Could not register mbeans java.security.AccessControlException: access denied ("javax.management.MBeanTrustPermission" "register")
+-  2017-06-23 14:00:44,760 main ERROR Could not register mbeans java.security.AccessControlException: access denied ("javax.management.MBeanTrustPermission" "register")
 
     原因是因为elasticsearch在启动过程中使用到了jmx,我们这里禁止使用即可,配置也是在Edit Configuation中设置虚拟机参数 -Dlog4j2.disable.jmx=true
 
-3. org.elasticsearch.bootstrap.StartupException: org.elasticsearch.bootstrap.BootstrapException: java.lang.IllegalStateException: jar hell!或Classname: org.elasticsearch.search.aggregations.matrix.MatrixAggregationPlugin due to jar hell
+- org.elasticsearch.bootstrap.StartupException: org.elasticsearch.bootstrap.BootstrapException: java.lang.IllegalStateException: jar hell!或Classname: org.elasticsearch.search.aggregations.matrix.MatrixAggregationPlugin due to jar hell
 
     原因是因为elasticsearch中大量存在一个类或一个资源文件存在多个jar中,我们注释掉相应代码即可,主要是PluginsService中374行的JarHell.checkJarHell(union)以及
     Bootstrap中220行的JarHell.checkJarHell()
