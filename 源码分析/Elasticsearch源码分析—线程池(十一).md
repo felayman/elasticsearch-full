@@ -221,3 +221,9 @@ static {
 [2017-09-27T14:31:47,568][DEBUG][o.e.t.ThreadPool         ] [x2LMQHg] created thread pool: name [bulk], size [8], queue size [200]
 [2017-09-27T14:31:47,568][DEBUG][o.e.t.ThreadPool         ] [x2LMQHg] created thread pool: name [snapshot], core [1], max [4], keep alive [5m]
 ~~~
+
+
+
+### 参考
+
+- [Thread Pool](https://www.elastic.co/guide/en/elasticsearch/reference/6.x/modules-threadpool.html)
