@@ -2,6 +2,21 @@
 
 > Elasticsearch版本为 5.5.0,下面是主要的核心流程,忽略异常补偿部分
 
+## 整体流程
+
+    以代码流的方式来预览Elasticsearch的启动流程
+    1. elasticsearch.main(args, terminal)
+    2. mainWithoutErrorHandling(args, terminal);
+    3. execute(terminal, options)
+    4. execute(terminal, options, createEnv(terminal, settings))
+    5. init(daemonize, pidFile, quiet, env)
+    6. Bootstrap.init(!daemonize, pidFile, quiet, initialEnv)
+    7. INSTANCE = new Bootstrap();
+    8. INSTANCE.setup(true, environment);
+    9. INSTANCE.start();
+
+上面是Elasticsearch启动过程中的一些比较关键和具有分割点意义的代码,在每个
+
 ### 1. 配置默认settings,如path.conf,path.data,path.home,path.logs,这些参数都可以通过VM options中进行设置
 
     ~~~java
