@@ -66,5 +66,79 @@ client.admin().cluster().prepareHealth("employee")  (5)
 6. 等待集群变成green状态
 7. 最多等待2秒钟
 
+### 源码小窥
+
+ClusterAdminClient接口是用来管理集群相关的操作,有如下方法:
+
+**ActionFuture<ClusterHealthResponse> health(ClusterHealthRequest request)**
+
+获取集群健康状态
+
+**ActionFuture<ClusterStateResponse> state(ClusterStateRequest request);**
+
+获取集群的统计信息
+
+**ActionFuture<ClusterUpdateSettingsResponse> updateSettings(ClusterUpdateSettingsRequest request);**
+
+更新settings信息
+
+**ActionFuture<ClusterRerouteResponse> reroute(ClusterRerouteRequest request);**
+
+获取分片的路由信息
+
+** ActionFuture<NodesInfoResponse> nodesInfo(NodesInfoRequest request);**
+
+获取节点信息
+
+**ActionFuture<ClusterStatsResponse> clusterStats(ClusterStatsRequest request);**
+
+获取集群的集合状态信息
+
+**ActionFuture<NodesStatsResponse> nodesStats(NodesStatsRequest request);**
+
+获取节点状态
+
+**ActionFuture<NodesHotThreadsResponse> nodesHotThreads(NodesHotThreadsRequest request);**
+
+获取节点的热线程
+
+**ActionFuture<ListTasksResponse> listTasks(ListTasksRequest request);**
+
+获取节点的任务
+
+**ActionFuture<GetTaskResponse> getTask(GetTaskRequest request);**
+
+获取指定的节点任务
+
+**ActionFuture<CancelTasksResponse> cancelTasks(CancelTasksRequest request);**
+
+取消节点任务
+
+**ActionFuture<ClusterSearchShardsResponse> searchShards(ClusterSearchShardsRequest request);**
+
+从分片上查询结果
+
+**ActionFuture<PutRepositoryResponse> putRepository(PutRepositoryRequest request);**
+
+设置一个快照仓库
+
+**ActionFuture<DeleteRepositoryResponse> deleteRepository(DeleteRepositoryRequest request);**
+
+删除快照仓库
+
+**ActionFuture<GetRepositoriesResponse> getRepositories(GetRepositoriesRequest request);**
+
+获取快照仓库
+
+**ActionFuture<VerifyRepositoryResponse> verifyRepository(VerifyRepositoryRequest request);**
+
+验证快照仓库
+
+**ActionFuture<CreateSnapshotResponse> createSnapshot(CreateSnapshotRequest request);**
+
+创建一个快照仓库
+
+****
+
 
 
