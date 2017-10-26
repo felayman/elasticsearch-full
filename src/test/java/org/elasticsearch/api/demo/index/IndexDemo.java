@@ -1,5 +1,6 @@
 package org.elasticsearch.api.demo.index;
 
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.api.demo.BaseDemo;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -69,7 +70,7 @@ public class IndexDemo extends BaseDemo {
 
 
     @Test
-    public void test() throws Exception {
+    public void testCreateIndex() throws Exception {
         XContentBuilder builder = XContentFactory.jsonBuilder()
                 .startObject()
                 .field("title", "我是一篇博客")
@@ -78,5 +79,10 @@ public class IndexDemo extends BaseDemo {
         client.prepareIndex("blogs", "blog", "1")
                 .setSource(builder)
                 .get();
+    }
+
+    @Test
+    public void testCreateMapping() throws Exception {
+
     }
 }
