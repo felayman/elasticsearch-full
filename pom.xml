@@ -30,7 +30,7 @@
     </developers>
 
     <properties>
-        <elasticsearch.version>5.5.0</elasticsearch.version>
+        <elasticsearch.version>5.5.1</elasticsearch.version>
         <spring-version>5.0.0.RC3</spring-version>
         <spring-data-elasticsearch-version>3.0.0.RC2</spring-data-elasticsearch-version>
         <fastjson-version>1.2.38</fastjson-version>

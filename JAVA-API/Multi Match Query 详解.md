@@ -1,6 +1,6 @@
 ## Multi Match Query
 
->  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Constant Score Query
+>  国内对于Elasticsearch深入的人并不多,或者大多数大牛不屑于分享关于Elasticsearch的知识,这里讲讲 Elasticsearch中的Multi Match Query
 
 
 ### 关于
@@ -17,31 +17,17 @@
 ### 语法
 
 ~~~
-POST /my_index/my_type/_search
+GET /_search
 {
   "query": {
-    "match_phrase_prefix": {
-      "title": {
-        "query": "this is r",
-          "analyzer": "standard",
-          "max_expansions": 10,
-          "slop":2,
-          "boost":100
-      }
+    "multi_match" : {
+      "query":    "this is a test",
+      "fields": [ "subject", "message" ]
     }
   }
 }
 ~~~
 
-**参数说明**
-
-- analyzer   指定何种分析器来对该短语进行分词处理
-- max_expansions 控制最大的返回结果
-- boost 用于设置该查询的权重
-- slop 允许短语间的词项(term)间隔
-
-
-一般来说,match_phrase_prefix可以实现比较粗糙的自动建议(Suggest).
 
 ### 具体的例子
 
@@ -164,6 +150,37 @@ POST /blogs/blog/_search
 ~~~
 
 通过设置tie_breaker参数来控制匹配的权重缓冲值,意思是每个字段都会在得到匹配之后都会对该值进行计算.
+
+
+### 参数理解
+
+multi_match查询收到许多参数控制,下面我们来看下这些参数对查询结果有哪些影响
+
+**type**
+- best_fields
+        (默认) 查找与任何字段匹配的文档，使用最佳字段中的权重。 详情参见：best_fields
+- most_fields
+        查找与任何字段匹配的文档，并组合每个字段的权重。详情参见：most_fields.
+- cross_fields
+        使用相同的分析仪处理字段，就像它们是一个大字段。 在任何字段中查找每个字词，详情参见：cross_fields.
+- phrase
+        对每个字段运行match_phrase查询，并合并每个字段的权重，详情参见：phrase and phrase_prefix.
+- phrase_prefix
+        对每个字段运行match_phrase_prefix查询，并合并每个字段的权重，详情参见：phrase and phrase_prefix
+**operator**
+
+**analyzer**
+**slop**
+**fuzziness**
+**prefixLength**
+**maxExpansions**
+**minimumShouldMatch**
+**fuzzyRewrite**
+**useDisMax**
+**tieBreaker**
+**lenient**
+**cutoffFrequency**
+**zeroTermsQuery**
 
 ### Java API
 

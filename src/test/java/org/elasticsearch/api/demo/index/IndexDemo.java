@@ -67,4 +67,16 @@ public class IndexDemo extends BaseDemo {
                 .get();
     }
 
+
+    @Test
+    public void test() throws Exception {
+        XContentBuilder builder = XContentFactory.jsonBuilder()
+                .startObject()
+                .field("title", "我是一篇博客")
+                .field("content", "十九大终于闭幕了")
+                .endObject();
+        client.prepareIndex("blogs", "blog", "1")
+                .setSource(builder)
+                .get();
+    }
 }

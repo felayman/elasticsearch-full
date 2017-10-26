@@ -13,8 +13,19 @@ import org.junit.Test;
  */
 public class MultiMatchQueryDemo extends XPackBaseDemo {
 
+    private void setup(){
+
+    }
+
     @Test
     public void testForClient() throws Exception {
+
+        /**
+         * @see <a href='https://www.elastic.co/guide/en/elasticsearch/reference/5.6/query-dsl-multi-match-query.html'></a>
+         * MultiMatchQuery依赖于match query ,也就是其核心是基于MatchQuery构建的
+         *
+         */
+
         MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery("elasticsearch match query","title", "descrption");
 
         multiMatchQueryBuilder.analyzer("standard");
