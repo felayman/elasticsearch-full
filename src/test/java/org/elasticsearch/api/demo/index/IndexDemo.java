@@ -1,10 +1,23 @@
 package org.elasticsearch.api.demo.index;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import org.apache.http.util.EntityUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.action.search.SearchAction;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.api.demo.BaseDemo;
+import org.elasticsearch.api.demo.XPackBaseDemo;
+import org.elasticsearch.client.Response;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.rest.action.cat.RestCountAction;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Test;
 
 import java.util.Date;
@@ -76,13 +89,25 @@ public class IndexDemo extends BaseDemo {
                 .field("title", "我是一篇博客")
                 .field("content", "十九大终于闭幕了")
                 .endObject();
-        client.prepareIndex("blogs", "blog", "1")
+        client.prepareIndex("test11111", "test", "1")
                 .setSource(builder)
                 .get();
     }
 
     @Test
     public void testCreateMapping() throws Exception {
+        PutMappingRequest putMappingRequest = new PutMappingRequest();
+        putMappingRequest.indices("blog");
+        putMappingRequest.type("");
+        client.admin().indices().putMapping(putMappingRequest);
+    }
 
+    @Test
+    public void name() throws Exception {
+        String method = "GET";
+        String endpoint = "/_cat/count?v";
+
+        Response response = restClient.performRequest(method,endpoint);
+        System.out.println(EntityUtils.toString(response.getEntity()));
     }
 }
