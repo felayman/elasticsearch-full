@@ -3,6 +3,8 @@ Elasticsearch 中文翻译
 
 ## 版本
 
+> 该翻译文档会持续跟新,部分文章可能更新不及时,欢迎PR
+
 [Elasticsearch 6.x](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ## 章节
