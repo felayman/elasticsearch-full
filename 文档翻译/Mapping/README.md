@@ -87,3 +87,42 @@ mapping是用来处理一个文档以及字段是如何包含,存储和索引的
 如果title字段同时存在于user和blogpost映射类型中，那么title字段在每个类型中都有相同的映射。除了copy_to, dynamic, enabled, ignore_above, include_in_all, 和 properties，这些属性在每个字段中可能会有不同的设置。
 通常，具有相同名称的字段也包含同样的数据类型，所以具有相同的映射不是问题。通过选择更多的描述名称能够解决冲突，如user_title 和blog_title
 
+
+### Example mapping(映射例子)
+
+~~~
+PUT my_index                                            (1)
+{
+  "mappings": {
+    "user": {  (2)
+      "_all":       { "enabled": false  },  (3)
+      "properties": {(4)
+        "title":    { "type": "text"  },(5)
+        "name":     { "type": "text"  },(6)
+        "age":      { "type": "integer" }(7)
+      }
+    },
+    "blogpost": {(8)
+      "_all":       { "enabled": false  },(9)
+      "properties": {(10)
+        "title":    { "type": "text"  },(11)
+        "body":     { "type": "text"  },(12)
+        "user_id":  {
+          "type":   "keyword"(13)
+        },
+        "created":  {
+          "type":   "date",(14)
+          "format": "strict_date_optional_time||epoch_millis"
+        }
+      }
+    }
+  }
+}
+~~~
+
+
+### Removal of mapping types(删除映射类型)
+
+> 在以后创建的指标可能Elasticsearch 6.0.0只包含一个单一的映射类型。创建于5的指标。X多映射类型将继续发挥在Elasticsearch 6。x映射类型将在Elasticsearch 7.0.0完全去除。
+
+
