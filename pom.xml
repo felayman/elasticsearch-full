@@ -30,13 +30,11 @@
     </developers>
 
     <properties>
-        <elasticsearch.version>5.5.1</elasticsearch.version>
-        <spring-version>5.0.0.RC3</spring-version>
-        <spring-data-elasticsearch-version>3.0.0.RC2</spring-data-elasticsearch-version>
+        <elasticsearch.version>5.5.3</elasticsearch.version>
         <fastjson-version>1.2.38</fastjson-version>
         <junit-version>4.12</junit-version>
         <slf4j-version>1.7.5</slf4j-version>
-        <ik.version>5.5.1</ik.version>
+        <ik.version>5.5.3</ik.version>
         <spring-test-version>4.1.6.RELEASE</spring-test-version>
         <dubbo-version>2.5.4</dubbo-version>
         <httpclient-version>4.5.1</httpclient-version>
@@ -127,5 +125,5 @@
         </repository>
     </repositories>
 
-    
+
 </project>

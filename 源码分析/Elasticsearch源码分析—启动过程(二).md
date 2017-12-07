@@ -15,7 +15,7 @@
     8. INSTANCE.setup(true, environment);
     9. INSTANCE.start();
 
-上面是Elasticsearch启动过程中的一些比较关键和具有分割点意义的代码,在每个
+上面是Elasticsearch启动过程中的一些比较关键和具有分割点意义的代码
 
 ### 1. 配置默认settings,如path.conf,path.data,path.home,path.logs,这些参数都可以通过VM options中进行设置
 

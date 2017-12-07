@@ -21,23 +21,23 @@ public class SampleIndexDemo {
 
     public static void main(String []args) throws IOException {
 
-        Analyzer analyzer = new StandardAnalyzer();
-
-        Directory directory = FSDirectory.open(Paths.get("/Users/admin/lucene"));
-
-        IndexWriterConfig config = new IndexWriterConfig(analyzer);
-
-        IndexWriter iwriter = new IndexWriter(directory, config);
-
-        Document doc = new Document();
-
-        String text = "This is the text to be indexed.";
-
-        doc.add(new Field("fieldname", text, TextField.TYPE_STORED));
-
-        iwriter.addDocument(doc);
-
-        iwriter.close();
+//        Analyzer analyzer = new StandardAnalyzer();
+//
+//        Directory directory = FSDirectory.open(Paths.get("/Users/admin/lucene"));
+//
+//        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+//
+//        IndexWriter iwriter = new IndexWriter(directory, config);
+//
+//        Document doc = new Document();
+//
+//        String text = "This is the text to be indexed.";
+//
+//        doc.add(new Field("fieldname", text, TextField.TYPE_STORED));
+//
+//        iwriter.addDocument(doc);
+//
+//        iwriter.close();
 
     }
 }

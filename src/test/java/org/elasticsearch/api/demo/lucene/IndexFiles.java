@@ -31,7 +31,7 @@ public class IndexFiles {
     public static void main(String[] args) {
 
         String indexPath = "index";
-        String docsPath = "/Users/admin/github/elasticsearch-java-api/src/test/java/org/visualchina/elasticsearch/api/";
+        String docsPath = "/Users/admin/github/elasticsearch-full/JAVA-QUERY-API/";
         boolean create = true;
 
         final Path docDir = Paths.get(docsPath);

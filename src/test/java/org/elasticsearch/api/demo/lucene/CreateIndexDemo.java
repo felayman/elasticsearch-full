@@ -33,6 +33,7 @@ public class CreateIndexDemo {
         document.add(new LegacyLongField("id", 5499, Field.Store.YES));
         document.add(new Field("title", "小米6", TYPE_STORED));
         document.add(new Field("sellPoint", "骁龙835，6G内存，双摄！", TYPE_STORED));
+        document.
         indexWriter.addDocument(document);
         indexWriter.commit();
         indexWriter.close();
