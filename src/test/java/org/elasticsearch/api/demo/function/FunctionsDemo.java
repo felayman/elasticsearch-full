@@ -2,7 +2,7 @@ package org.elasticsearch.api.demo.function;
 
 import org.elasticsearch.api.demo.BaseDemo;
 import org.elasticsearch.common.lucene.search.function.CombineFunction;
-import org.elasticsearch.common.lucene.search.function.FiltersFunctionScoreQuery;
+import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
@@ -27,6 +27,6 @@ public class FunctionsDemo extends BaseDemo{
         QueryBuilders.functionScoreQuery(
                 QueryBuilders.queryStringQuery("北京").defaultField("FIELD").field("titleZh^3.0"),
                 filterFunctionBuilders
-        ).boostMode(CombineFunction.MULTIPLY).scoreMode(FiltersFunctionScoreQuery.ScoreMode.AVG);
+        ).boostMode(CombineFunction.MULTIPLY).scoreMode(FunctionScoreQuery.ScoreMode.AVG);
     }
 }

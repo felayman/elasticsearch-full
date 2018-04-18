@@ -19,13 +19,12 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 import java.net.InetAddress;
 import java.util.HashMap;
@@ -38,7 +37,6 @@ import java.util.Map;
  */
 public class XPackBaseDemo {
     protected TransportClient client;
-    protected ElasticsearchTemplate elasticsearchTemplate;
     protected RestClient restClient ;
 
     @Before
@@ -50,8 +48,7 @@ public class XPackBaseDemo {
          */
         Settings settings = Settings.builder(). put("xpack.security.user", "elastic:changeme").build();
         client = new PreBuiltXPackTransportClient(settings)
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
-        elasticsearchTemplate = new ElasticsearchTemplate(client);
+                .addTransportAddress(new TransportAddress(InetAddress.getByName("localhost"),9200));
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials("elastic", "changeme"));
@@ -86,16 +83,6 @@ public class XPackBaseDemo {
         }
     }
 
-    @Test
-    public void testElasticsearchTemplateConnection() throws Exception {
-        AnalyzeRequest analyzeRequest = new AnalyzeRequest();
-        analyzeRequest.text("中华人民共和国");
-        ActionFuture<AnalyzeResponse> analyzeResponseActionFuture =  elasticsearchTemplate.getClient().admin().indices().analyze(analyzeRequest);
-        List<AnalyzeResponse.AnalyzeToken> analyzeTokens =  analyzeResponseActionFuture.actionGet().getTokens();
-        for (AnalyzeResponse.AnalyzeToken analyzeToken  : analyzeTokens){
-            System.out.println(analyzeToken.getTerm());
-        }
-    }
 
     @Test
     public void testRestClientConnection() throws Exception {
@@ -111,7 +98,7 @@ public class XPackBaseDemo {
     protected void println(SearchResponse searchResponse){
         SearchHit[]  searchHits = searchResponse.getHits().getHits();
         for (SearchHit searchHit : searchHits){
-            System.out.println(JSON.toJSONString(searchHit.getSource(),SerializerFeature.PrettyFormat));
+            System.out.println(JSON.toJSONString(searchHit.getSourceAsString(),SerializerFeature.PrettyFormat));
         }
     }
 }

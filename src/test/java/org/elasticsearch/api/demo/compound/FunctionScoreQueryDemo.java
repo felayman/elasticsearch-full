@@ -19,7 +19,7 @@ public class FunctionScoreQueryDemo extends BaseDemo {
         FunctionScoreQueryBuilder.FilterFunctionBuilder[] functions = {
                 new FunctionScoreQueryBuilder.FilterFunctionBuilder(
                         QueryBuilders.matchQuery("name", "kimchy"),
-                        ScoreFunctionBuilders. randomFunction("ABCDEF")),
+                        ScoreFunctionBuilders. randomFunction()),
                 new FunctionScoreQueryBuilder.FilterFunctionBuilder(
                         ScoreFunctionBuilders.exponentialDecayFunction("age", 0L, 1L))
         };

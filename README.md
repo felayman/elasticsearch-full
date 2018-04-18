@@ -4,17 +4,17 @@
 
 ## 版本
 
-    Elasticsearch 5.5.0
+    Elasticsearch 6.2.x
 
 ## 关于Elasticsearch-Full
 
 - [源码分析](https://github.com/felayman/elasticsearch-full/tree/master/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91)
 
-     针对Elasticsearch5.5.0版本的源码进行分析的系列文章
+     针对Elasticsearch6.2.x版本的源码进行分析的系列文章
 
 - [文档翻译](https://github.com/felayman/elasticsearch-full/tree/master/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91)
 
-    针对Elasticsearch5.5.0官方文档进行翻译说明的文章(包括转载)
+    针对Elasticsearch6.2.x官方文档进行翻译说明的文章(包括转载)
 
 - [收藏好文](https://github.com/felayman/elasticsearch-full/tree/master/%E6%94%B6%E8%97%8F%E5%A5%BD%E6%96%87)
 
@@ -22,7 +22,7 @@
 
 - [JAVA-API](https://github.com/felayman/elasticsearch-full/tree/master/JAVA-API)
 
-    针对Elasticsearch5.5.0官方提供的原生client以及restClient和spring-data-elasticsearch提供的elasticsearchTemplate的某些java-api的实现
+    针对Elasticsearch6.2.x官方提供的原生client以及restClient
 
 - [LUCENE](https://github.com/felayman/elasticsearch-full/tree/master/LUCENE)
 

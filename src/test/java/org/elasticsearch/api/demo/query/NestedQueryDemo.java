@@ -5,8 +5,6 @@ import org.elasticsearch.api.demo.BaseDemo;
 import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 /**
  * @auhthor lei.fang@shijue.me
@@ -20,6 +18,5 @@ public class NestedQueryDemo extends BaseDemo {
                 .nestedQuery(
                         "keywords",
                         QueryBuilders.termQuery("keywords.keyword","北京"), ScoreMode.None);
-        SearchQuery searchQuery = new NativeSearchQuery(nestedQueryBuilder);
     }
 }

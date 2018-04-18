@@ -1,6 +1,7 @@
 package org.elasticsearch.api.demo.update;
 
 import org.elasticsearch.api.demo.BaseDemo;
+import org.junit.Test;
 
 /**
  * @auhthor lei.fang@shijue.me

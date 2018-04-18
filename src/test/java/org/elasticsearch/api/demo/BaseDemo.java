@@ -13,13 +13,12 @@ import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 import java.net.InetAddress;
 import java.util.HashMap;
@@ -33,7 +32,6 @@ import java.util.Map;
 public class BaseDemo {
 
     protected TransportClient client;
-    protected ElasticsearchTemplate elasticsearchTemplate;
     protected RestClient restClient ;
 
     @Before
@@ -44,8 +42,7 @@ public class BaseDemo {
          * 2. http客户端的方式是以http协议在9200端口上进行通信
          */
         client = new PreBuiltTransportClient(Settings.EMPTY)
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
-        elasticsearchTemplate = new ElasticsearchTemplate(client);
+                .addTransportAddress(new TransportAddress(InetAddress.getByName("localhost"), 9300));
         restClient = RestClient.builder(new HttpHost("localhost",9200)).build();
     }
 
@@ -72,17 +69,6 @@ public class BaseDemo {
     }
 
     @Test
-    public void testElasticsearchTemplateConnection() throws Exception {
-        AnalyzeRequest analyzeRequest = new AnalyzeRequest();
-        analyzeRequest.text("中华人民共和国");
-        ActionFuture<AnalyzeResponse> analyzeResponseActionFuture =  elasticsearchTemplate.getClient().admin().indices().analyze(analyzeRequest);
-        List<AnalyzeResponse.AnalyzeToken> analyzeTokens =  analyzeResponseActionFuture.actionGet().getTokens();
-        for (AnalyzeResponse.AnalyzeToken analyzeToken  : analyzeTokens){
-            System.out.println(analyzeToken.getTerm());
-        }
-    }
-
-    @Test
     public void testRestClientConnection() throws Exception {
         String method = "GET";
         String endpoint = "/_analyze";
@@ -96,7 +82,7 @@ public class BaseDemo {
     protected void println(SearchResponse searchResponse){
         SearchHit[]  searchHits = searchResponse.getHits().getHits();
         for (SearchHit searchHit : searchHits){
-            System.out.println(JSON.toJSONString(searchHit.getSource(),SerializerFeature.PrettyFormat));
+            System.out.println(JSON.toJSONString(searchHit.getSourceAsString(),SerializerFeature.PrettyFormat));
         }
     }
 
